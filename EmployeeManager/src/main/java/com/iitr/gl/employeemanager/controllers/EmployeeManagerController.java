@@ -62,9 +62,13 @@ public class EmployeeManagerController {
 		return employeeManagerService.removeEmployeeById(empId);
 	}
 	
-	@GetMapping("/employees/search")
-	public List<Employee> searchEmployeesList(@RequestParam("search") String searchKey, 
-											 	@RequestParam("orderBy") String orderByKey) {
-		return employeeManagerService.findEmployeesByFirstName(searchKey, orderByKey);
+	@GetMapping("/employees/search/{searchKey}")
+	public List<Employee> searchEmployeesList(@PathVariable String searchKey) {
+		return employeeManagerService.findEmployeesByFirstNameContains(searchKey);
+	}
+	
+	@GetMapping("/employees/sort")
+	public List<Employee> sortEmployeesListByFirstName(@RequestParam("order") String orderByKey) {
+		return employeeManagerService.sortEmployeesByFirstNameInOder(orderByKey);
 	}
 }

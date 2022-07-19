@@ -11,5 +11,6 @@ public interface EmployeeManagerService {
 	Employee updateEmployee(Employee theEmployee);
 	Employee removeEmployeeById(Long employeeId);
 	
-	List<Employee> findEmployeesByFirstName(String searchKey, String orderBy);
+	List<Employee> findEmployeesByFirstNameContains(String searchKey);
+	List<Employee> sortEmployeesByFirstNameInOder(String orderBy);
 }

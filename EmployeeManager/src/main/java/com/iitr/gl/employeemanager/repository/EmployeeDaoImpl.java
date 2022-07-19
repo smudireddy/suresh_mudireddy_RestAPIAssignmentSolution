@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -50,12 +51,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 	
 	@Override
-	public List<Employee> findEmployeesByFirstName(String searchKey, String orderBy) {
-		
-		Query query = entityManager.createQuery("select e from Employee e where e.first_name like '%:searchKey%' ordered by e.first_name :orderBy");
-		query.setParameter("searchKey", searchKey);
-		query.setParameter("orderedBy", ((orderBy.length() == 0)?"ASC":orderBy));
+	public List<Employee> findEmployeesByFirstNameContains(String searchKey) {
+		String queryStr = "from Employee e where e.firstName like '%" + searchKey + "%' order by e.firstName asc";   
+		TypedQuery<Employee> query = entityManager.createQuery(queryStr, Employee.class);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Employee> sortEmployeesByFirstNameInOder(String orderBy) {
+		
+		String queryStr = "from Employee e where e.firstName order by e.firstName " + orderBy;   
+		TypedQuery<Employee> query = entityManager.createQuery(queryStr, Employee.class);
+		return query.getResultList();
+	
 	}
 }
 

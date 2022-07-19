@@ -40,9 +40,14 @@ public class EmployeeManagerServiceImpl implements com.iitr.gl.employeemanager.s
 	public Employee removeEmployeeById(Long employeeId) {
 		 return employeeDao.removeEmployeeById(employeeId);
 	}
+	
+	@Override
+	public List<Employee> findEmployeesByFirstNameContains(String searchKey) {
+		return employeeDao.findEmployeesByFirstNameContains(searchKey);
+	}
 
 	@Override
-	public List<Employee> findEmployeesByFirstName(String searchKey, String orderBy) {
-		return employeeDao.findEmployeesByFirstName(searchKey, orderBy);
+	public List<Employee> sortEmployeesByFirstNameInOder(String orderBy) {
+		return employeeDao.sortEmployeesByFirstNameInOder(orderBy);
 	}
 }
