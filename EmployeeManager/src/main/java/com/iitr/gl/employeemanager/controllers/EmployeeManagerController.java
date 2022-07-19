@@ -23,6 +23,7 @@ public class EmployeeManagerController {
 	@Autowired
 	private EmployeeManagerService employeeManagerService;
 	
+	// List of Employees
 	@RequestMapping(value = {"/employees" }, method = {RequestMethod.GET, RequestMethod.POST})
 	public List<Employee> fetchEmployeesList() {
 		return employeeManagerService.getAllEmployees();
@@ -58,15 +59,21 @@ public class EmployeeManagerController {
 	
 	//7 - Remove employee record by empID
 	@DeleteMapping("/employees/{empId}")
-	public Employee removeEmployeeDetails(@PathVariable Long empId) {
-		return employeeManagerService.removeEmployeeById(empId);
+	public String removeEmployeeDetails(@PathVariable Long empId) {
+		Employee employee = employeeManagerService.removeEmployeeById(empId);
+		if(employee != null) {
+			return "Deleted employee with id: " + empId; 
+		}
+		return "No employee record exist with id: " + empId; 
 	}
 	
+	//Search 
 	@GetMapping("/employees/search/{searchKey}")
 	public List<Employee> searchEmployeesList(@PathVariable String searchKey) {
 		return employeeManagerService.findEmployeesByFirstNameContains(searchKey);
 	}
 	
+	//Sort
 	@GetMapping("/employees/sort")
 	public List<Employee> sortEmployeesListByFirstName(@RequestParam("order") String orderByKey) {
 		return employeeManagerService.sortEmployeesByFirstNameInOder(orderByKey);

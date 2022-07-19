@@ -60,7 +60,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> sortEmployeesByFirstNameInOder(String orderBy) {
 		
-		String queryStr = "from Employee e where e.firstName order by e.firstName " + orderBy;   
+		String queryStr = "from Employee e order by e.firstName " + orderBy;   
 		TypedQuery<Employee> query = entityManager.createQuery(queryStr, Employee.class);
 		return query.getResultList();
 	

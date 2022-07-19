@@ -38,6 +38,8 @@ public class EmployeeManagerWebSecurityConfig extends WebSecurityConfigurerAdapt
 			.formLogin()
 			.loginProcessingUrl("/login")
 			.successForwardUrl("/api/employees").permitAll()
+			.and()
+			.httpBasic()
 			.and().logout().logoutSuccessUrl("/login").permitAll()
 			.and()
 			.exceptionHandling().accessDeniedPage("/api/employees/accessdenied")
