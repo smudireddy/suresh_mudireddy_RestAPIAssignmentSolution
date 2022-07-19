@@ -8,7 +8,7 @@ insert into users_roles values(1,1);
 insert into users_roles values(1,2);
 insert into users_roles values(2,1);
 
-insert into employee(emp_id,first_name,last_name,email) values(1,'Suresh','Reddy','suresh.mudireddy@gmail.com');
-insert into employee(emp_id,first_name,last_name,email) values(2,'Ramesh','Reddy','ramesh.mudireddy@gmail.com');
-insert into employee(emp_id,first_name,last_name,email) values(3,'kiran','Kumar','kiran.kumar@gmail.com');
-insert into employee(emp_id,first_name,last_name,email) values(4,'Rakesh','Reddy','rakesh.reddy@gmail.com');
+insert into employee(id,first_name,last_name,email) values(1,'Suresh','Reddy','suresh.mudireddy@gmail.com');
+insert into employee(id,first_name,last_name,email) values(2,'Ramesh','Reddy','ramesh.mudireddy@gmail.com');
+insert into employee(id,first_name,last_name,email) values(3,'kiran','Kumar','kiran.kumar@gmail.com');
+insert into employee(id,first_name,last_name,email) values(4,'Rakesh','Reddy','rakesh.reddy@gmail.com');

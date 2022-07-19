@@ -27,12 +27,11 @@ public class EmployeeManagerWebSecurityConfig extends WebSecurityConfigurerAdapt
 		 .and()
 		 .authorizeRequests()
 		 .antMatchers("/", "/api/employees","/api/employees/accessdenied","/api/users/accessdenied").hasAnyRole("USER", "ADMIN")
-		 .antMatchers("/api/employees/add", 
-					"/api/employees/update", 
-					"/api/employees/remove",
-					"/api/users", "/api/users/**")
-			.hasRole("ADMIN")
-			.anyRequest()
+		 .antMatchers(HttpMethod.POST,"/api/employees/**").hasRole("ADMIN")
+		 .antMatchers(HttpMethod.PUT,"/api/employees/**").hasRole("ADMIN")
+		 .antMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+		 .antMatchers("/api/users", "/api/users/**").hasRole("ADMIN")
+		 .anyRequest()
 			.authenticated()
 			.and()
 			.formLogin()

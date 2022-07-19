@@ -35,9 +35,28 @@ public class EmployeeManagerController {
 		return employeeManagerService.fetchEmployeeById(empId);
 	}
 	
-	//6 - Add / Update Employee
-	@PostMapping("/employees/add")
-	public Employee saveCustomer(@RequestBody Employee theEmployee) {
+	//6 - Add
+	@RequestMapping(value = {"/employees/addemp" }, method = {RequestMethod.POST})
+	public String saveCustomer(@RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName, @RequestParam("email") String email) {
+
+		Employee employee = new Employee(firstName, lastName, email);
+		employee.setId(0l);
+		employeeManagerService.addEmployee(employee);
+		return "Added employee successfully";
+	}
+	
+	//6 - Add
+	@RequestMapping(value = {"/employees/add" }, method = {RequestMethod.POST})
+	public Employee saveEmployee(@RequestBody Employee theEmployee) {
+		
+		System.out.println("-----> " + theEmployee.getEmail() );
+		Employee employee = employeeManagerService.addEmployee(theEmployee);
+		return employee;
+	}
+	
+	@RequestMapping(value = {"/employees/{empId}" }, method = {RequestMethod.POST, RequestMethod.PUT})
+	public Employee saveCustomer(@PathVariable Long empId, @RequestBody Employee theEmployee) {
 
 		Employee employee;
 

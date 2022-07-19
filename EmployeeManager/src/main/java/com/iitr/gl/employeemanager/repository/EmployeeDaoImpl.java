@@ -1,15 +1,12 @@
 package com.iitr.gl.employeemanager.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
-
 import com.iitr.gl.employeemanager.entities.Employee;
 
 @Repository
@@ -22,12 +19,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> getAllEmployees() {
 		return entityManager.createQuery("from Employee").getResultList();
 	}
-	
+
 	@Override
 	public Employee fetchEmployeeById(Long employeeId) {
 		return entityManager.find(Employee.class, employeeId);
 	}
-	
+
 	@Override
 	public void addEmployee(Employee theEmployee) {
 		entityManager.persist(theEmployee);
@@ -49,21 +46,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return employee;
 	}
-	
+
 	@Override
 	public List<Employee> findEmployeesByFirstNameContains(String searchKey) {
-		String queryStr = "from Employee e where e.firstName like '%" + searchKey + "%' order by e.firstName asc";   
+		String queryStr = "from Employee e where e.firstName like '%" + searchKey + "%' order by e.firstName asc";
 		TypedQuery<Employee> query = entityManager.createQuery(queryStr, Employee.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Employee> sortEmployeesByFirstNameInOder(String orderBy) {
-		
-		String queryStr = "from Employee e order by e.firstName " + orderBy;   
+
+		String queryStr = "from Employee e order by e.firstName " + orderBy;
 		TypedQuery<Employee> query = entityManager.createQuery(queryStr, Employee.class);
 		return query.getResultList();
-	
+
 	}
 }
-
