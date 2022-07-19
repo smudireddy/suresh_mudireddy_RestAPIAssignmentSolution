@@ -1,17 +1,23 @@
 package com.iitr.gl.employeemanager.servicesimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iitr.gl.employeemanager.entities.GLUser;
+import com.iitr.gl.employeemanager.entities.GLUserRole;
 import com.iitr.gl.employeemanager.repository.GLUsersDao;
 import com.iitr.gl.employeemanager.security.GLUserDetails;
+import com.iitr.gl.employeemanager.services.UserMaanagementService;
 
 @Service
-public class UserMaanagementServiceImpl implements UserDetailsService {
+@Transactional
+public class UserMaanagementServiceImpl implements UserDetailsService, UserMaanagementService {
 
 	@Autowired
 	private GLUsersDao userDao;
@@ -22,5 +28,21 @@ public class UserMaanagementServiceImpl implements UserDetailsService {
 		GLUser user = userDao.findUserByName(username);
 		UserDetails userDetails = new GLUserDetails(user);
 		return userDetails;
+	}
+
+	@Override
+	public List<GLUser> fetchAllUsers() {
+		return userDao.fetchAllUsers();
+	}
+
+	@Override
+	public List<GLUserRole> fetchAllRoles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addUserRole(GLUserRole role) {
+		userDao.addUserRole(role);
 	}
 }

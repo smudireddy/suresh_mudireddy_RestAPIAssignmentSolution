@@ -15,67 +15,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class EmployeeManagerWebSecurityConfig extends WebSecurityConfigurerAdapter  {
-	
-	@Autowired 
-	private UserDetailsService  userMaanagementService;
-	
+public class EmployeeManagerWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private UserDetailsService userMaanagementService;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		 http.anonymous()
-		 .and()
-		 .authorizeRequests()
-		 .antMatchers("/", "/api/employees","/api/employees/accessdenied","/api/users/accessdenied").hasAnyRole("USER", "ADMIN")
-		 .antMatchers(HttpMethod.POST,"/api/employees/**").hasRole("ADMIN")
-		 .antMatchers(HttpMethod.PUT,"/api/employees/**").hasRole("ADMIN")
-		 .antMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
-		 .antMatchers("/api/users", "/api/users/**").hasRole("ADMIN")
-		 .anyRequest()
-			.authenticated()
-			.and()
-			.formLogin()
-			.loginProcessingUrl("/login")
-			.successForwardUrl("/api/employees").permitAll()
-			.and()
-			.httpBasic()
-			.and().logout().logoutSuccessUrl("/login").permitAll()
-			.and()
-			.exceptionHandling().accessDeniedPage("/api/employees/accessdenied")
-			.and()
-			.exceptionHandling().accessDeniedPage("/api/users/accessdenied")
-			.and().cors().and().csrf().disable();
+
+		http.anonymous().and().authorizeRequests()
+				.antMatchers("/", "/api/employees", "/api/employees/accessdenied", "/api/users/accessdenied")
+				.hasAnyRole("USER", "ADMIN").antMatchers(HttpMethod.POST, "/api/employees/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/employees/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+				.antMatchers("/api/users", "/api/users/**").hasRole("ADMIN").anyRequest().authenticated().and()
+				.formLogin().loginProcessingUrl("/login").successForwardUrl("/api/employees").permitAll().and()
+				.httpBasic().and().logout().logoutSuccessUrl("/login").permitAll().and().exceptionHandling()
+				.accessDeniedPage("/api/employees/accessdenied").and().exceptionHandling()
+				.accessDeniedPage("/api/users/accessdenied").and().cors().and().csrf().disable();
 	}
-	
-	
+
 	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-            .ignoring()
-            .antMatchers("/h2-console/**");
-    }
-	
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/h2-console/**");
+	}
+
 	@Override
-    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(this.userMaanagementService)
-                .passwordEncoder(passwordEncoder());
-    }
-	
+	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(this.userMaanagementService).passwordEncoder(passwordEncoder());
+	}
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	/*
-	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-	    auth.inMemoryAuthentication()
-	        .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-	        .and()
-	        .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-	        .and()
-	        .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-	}
-	*/   
-
 }

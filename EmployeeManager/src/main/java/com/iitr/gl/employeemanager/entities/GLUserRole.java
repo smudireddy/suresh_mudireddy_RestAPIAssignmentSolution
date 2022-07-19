@@ -23,7 +23,7 @@ public class GLUserRole {
 	@Column(name = "role_id")
 	private long roleId;
 
-	@Column(name = "role_name", nullable = false, unique = true)
+	@Column(name = "role_name", nullable = false)
 	private String roleName;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -31,7 +31,6 @@ public class GLUserRole {
     		joinColumns = @JoinColumn(name="role_id"),
             inverseJoinColumns = @JoinColumn(name="user_id")
     )
-	
 	private Set<GLUser> glusers = new HashSet<GLUser>();
 
 	public GLUserRole(String roleName, Set<GLUser> glusers) {

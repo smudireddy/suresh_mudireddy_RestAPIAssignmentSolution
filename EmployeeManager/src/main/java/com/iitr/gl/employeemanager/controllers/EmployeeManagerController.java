@@ -97,4 +97,9 @@ public class EmployeeManagerController {
 	public List<Employee> sortEmployeesListByFirstName(@RequestParam("order") String orderByKey) {
 		return employeeManagerService.sortEmployeesByFirstNameInOder(orderByKey);
 	}
+	
+	@RequestMapping(value = {"/employees/accessdenied" }, method = {RequestMethod.PUT, RequestMethod.POST})
+	public String showAccessDenied() {
+		return "Sorry, you do not have permission.";
+	}
 }

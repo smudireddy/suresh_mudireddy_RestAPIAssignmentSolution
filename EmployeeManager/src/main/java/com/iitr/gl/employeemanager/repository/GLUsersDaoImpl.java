@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.iitr.gl.employeemanager.entities.GLUser;
+import com.iitr.gl.employeemanager.entities.GLUserRole;
 
 @Repository
 public class GLUsersDaoImpl implements GLUsersDao{
@@ -39,5 +40,11 @@ public class GLUsersDaoImpl implements GLUsersDao{
 	@Override
 	public void updateUser(GLUser user) {
 		this.entityManager.merge(user);
+	}
+
+	@Override
+	public void addUserRole(GLUserRole role) {
+		entityManager.persist(role);
+		entityManager.flush();
 	}
 }
