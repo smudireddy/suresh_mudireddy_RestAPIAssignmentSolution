@@ -19,4 +19,30 @@ public class EmployeeManagerServiceImpl implements com.iitr.gl.employeemanager.s
 		return employeeDao.getAllEmployees();
 	}
 
+	@Override
+	public Employee fetchEmployeeById(Long employeeId) {
+		return employeeDao.fetchEmployeeById(employeeId);
+	}
+
+	@Override
+	public Employee addEmployee(Employee theEmployee) {
+		employeeDao.addEmployee(theEmployee);
+		return theEmployee;
+	}
+
+	@Override
+	public Employee updateEmployee(Employee theEmployee) {
+		employeeDao.updateEmployee(theEmployee);
+		return theEmployee;
+	}
+
+	@Override
+	public Employee removeEmployeeById(Long employeeId) {
+		 return employeeDao.removeEmployeeById(employeeId);
+	}
+
+	@Override
+	public List<Employee> findEmployeesByFirstName(String searchKey, String orderBy) {
+		return employeeDao.findEmployeesByFirstName(searchKey, orderBy);
+	}
 }

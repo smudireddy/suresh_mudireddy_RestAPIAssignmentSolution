@@ -7,4 +7,9 @@ import com.iitr.gl.employeemanager.entities.Employee;
 public interface EmployeeDao {
 
 	List<Employee> getAllEmployees();
+	Employee fetchEmployeeById(Long employeeId);
+	void addEmployee(Employee theEmployee);
+	void updateEmployee(Employee theEmployee);
+	Employee removeEmployeeById(Long employeeId);
+	List<Employee> findEmployeesByFirstName(String searchKey, String orderBy);
 }
