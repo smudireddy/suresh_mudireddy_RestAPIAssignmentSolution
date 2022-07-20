@@ -37,8 +37,7 @@ public class UserMaanagementServiceImpl implements UserDetailsService, UserMaana
 
 	@Override
 	public List<GLUserRole> fetchAllRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.fetchAllUserRoles();
 	}
 
 	@Override

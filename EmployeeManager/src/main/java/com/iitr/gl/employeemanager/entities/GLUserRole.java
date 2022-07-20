@@ -28,7 +28,7 @@ public class GLUserRole {
 	@Column(name = "role_name", nullable = false)
 	private String roleName;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles", 
     		joinColumns = @JoinColumn(name="role_id"),
             inverseJoinColumns = @JoinColumn(name="user_id")

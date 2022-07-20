@@ -1,6 +1,7 @@
 package com.iitr.gl.employeemanager.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,12 @@ public class GLUsersDaoImpl implements GLUsersDao{
 		return this.entityManager.createQuery("from GLUser", GLUser.class).getResultList();
 	}
 	
+	@Override
+	public List<GLUserRole> fetchAllUserRoles() {
+		return this.entityManager.createQuery("from GLUserRole", GLUserRole.class).getResultList();
+	}
+	
+	@Override
 	public GLUser findUserByName(String userName)
 	{
 		GLUser user = entityManager
@@ -29,6 +36,17 @@ public class GLUsersDaoImpl implements GLUsersDao{
 
 	@Override
 	public void addUser(GLUser user) {
+		
+		/*
+		Set<GLUserRole> roles = user.getRoles();
+		user.setRoles(null);
+	    if (roles !=null) {
+	        for (GLUserRole role : roles) {
+	        	user.getRoles().add(entityManager.getReference(GLUserRole.class, role.getRoleId()));
+	        }
+	    }
+	    */		
+		
 		entityManager.persist(user);
 		entityManager.flush();
 	}

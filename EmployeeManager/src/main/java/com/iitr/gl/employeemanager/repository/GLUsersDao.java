@@ -14,4 +14,5 @@ public interface GLUsersDao {
 	public void updateUser(GLUser user);
 	
 	public void addUserRole(GLUserRole role);
+	List<GLUserRole> fetchAllUserRoles();
 }

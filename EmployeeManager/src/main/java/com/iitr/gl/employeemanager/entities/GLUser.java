@@ -28,7 +28,7 @@ public class GLUser {
 	@Column(name = "user_password")
 	private String password;
 
-	@ManyToMany(mappedBy = "glusers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "glusers", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Set<GLUserRole> roles = new HashSet<GLUserRole>();
 
 	public GLUser(String name, String password, Set<GLUserRole> roles) {

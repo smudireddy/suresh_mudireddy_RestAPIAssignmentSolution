@@ -1,6 +1,8 @@
 package com.iitr.gl.employeemanager.controllers;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +27,7 @@ public class UserManagementController {
 	
 	// List of Employees
 	@RequestMapping(value = { "/users" }, method = { RequestMethod.GET, RequestMethod.POST })
-	public List<GLUser> fetchEmployeesList() {
+	public List<GLUser> fetchUsersList() {
 		
 		List<GLUser> users = userManagementService.fetchAllUsers();
 		
@@ -34,8 +36,15 @@ public class UserManagementController {
 		}
 		return users;
 	}
+	
+	@RequestMapping(value = { "/users/roles" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public List<GLUserRole> fetchUserRolesList() {
+		
+		List<GLUserRole> roles = userManagementService.fetchAllRoles();
+		return roles;
+	}
 
-	@RequestMapping(value = { "/users/accessdenied" }, method = { RequestMethod.PUT, RequestMethod.POST })
+	@RequestMapping(value = { "/users/accessdenied" }, method = { RequestMethod.GET,RequestMethod.PUT, RequestMethod.POST })
 	public String showAccessDenied() {
 		return "Sorry, you do not have permission.";
 	}
