@@ -45,4 +45,9 @@ public class UserMaanagementServiceImpl implements UserDetailsService, UserMaana
 	public void addUserRole(GLUserRole role) {
 		userDao.addUserRole(role);
 	}
+
+	@Override
+	public void addUser(GLUser user) {
+		userDao.addUser(user);
+	}
 }

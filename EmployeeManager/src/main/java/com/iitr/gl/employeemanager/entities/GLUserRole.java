@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles")
 public class GLUserRole {
@@ -31,6 +33,7 @@ public class GLUserRole {
     		joinColumns = @JoinColumn(name="role_id"),
             inverseJoinColumns = @JoinColumn(name="user_id")
     )
+	@JsonIgnore
 	private Set<GLUser> glusers = new HashSet<GLUser>();
 
 	public GLUserRole(String roleName, Set<GLUser> glusers) {

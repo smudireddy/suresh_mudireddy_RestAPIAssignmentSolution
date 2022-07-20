@@ -2,6 +2,7 @@ package com.iitr.gl.employeemanager.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,18 +20,19 @@ public class UserManagementController {
 	@Autowired
 	private UserMaanagementService userManagementService;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	// List of Employees
 	@RequestMapping(value = { "/users" }, method = { RequestMethod.GET, RequestMethod.POST })
-	public String fetchEmployeesList() {
+	public List<GLUser> fetchEmployeesList() {
 		
-		System.out.println("------>");
 		List<GLUser> users = userManagementService.fetchAllUsers();
 		
 		for(GLUser user:users) {
 			user.setPassword("************");
-			System.out.println("------> " + user.toString());
 		}
-		return users.toString();
+		return users;
 	}
 
 	@RequestMapping(value = { "/users/accessdenied" }, method = { RequestMethod.PUT, RequestMethod.POST })
@@ -38,13 +40,20 @@ public class UserManagementController {
 		return "Sorry, you do not have permission.";
 	}
 	
-	@RequestMapping(value = {"/users/add" }, method = {RequestMethod.POST})
+	@RequestMapping(value = {"/users/addrole" }, method = {RequestMethod.POST})
 	public GLUserRole saveEmployee(@RequestBody GLUserRole userRole) {
 		
-		System.out.println("-----> " + userRole.toString() );
 		userManagementService.addUserRole(userRole); 
 		return userRole;
 	}
 	
-	
+	@RequestMapping(value = {"/users/adduser" }, method = {RequestMethod.POST})
+	public GLUser saveEmployee(@RequestBody GLUser user) {
+		
+		String password = user.getPassword();
+		user.setPassword(passwordEncoder.encode(password));
+		System.out.println("-----> " + user.toString());
+		userManagementService.addUser(user); 
+		return user;
+	}
 }

@@ -29,7 +29,8 @@ public class GLUsersDaoImpl implements GLUsersDao{
 
 	@Override
 	public void addUser(GLUser user) {
-		this.entityManager.persist(user);
+		entityManager.persist(user);
+		entityManager.flush();
 	}
 
 	@Override

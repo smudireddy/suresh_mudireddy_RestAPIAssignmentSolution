@@ -11,4 +11,5 @@ public interface UserMaanagementService {
 	List<GLUserRole> fetchAllRoles();
 	
 	void addUserRole(GLUserRole role);
+	void addUser(GLUser user);
 }
